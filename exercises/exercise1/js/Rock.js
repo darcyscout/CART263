@@ -1,7 +1,7 @@
 // Animal
 // A class defining an animal that can be displayed as an image
 
-class Animal {
+class Rock {
   // constructor(x, y, image)
   // Stores position and image as properties
   // Creates an angle property for potential rotation

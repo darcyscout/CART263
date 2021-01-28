@@ -4,107 +4,130 @@
 Where's Sausage Dog?
 Pippin Barr
 Where's Waldo, except with a Sausage Dog!
-Displays a large number of random animal images as well as
+Displays a large number of random rock images as well as
 a single sausage dog image. The player needs to click on the
 dog to win the game.
 ******************/
 
 // Constants for image loading
-const NUM_ANIMAL_IMAGES = 10;
-const ANIMAL_IMAGE_PREFIX = `assets/images/animal`;
-const SAUSAGE_DOG_IMAGE = `assets/images/sausage-dog.png`;
+const NUM_ROCK_IMAGES = 10;
+const ROCK_IMAGE_PREFIX = `assets/images/rock`;
+const SAUSAGE_DOG_IMAGE = `assets/images/limestone.png`;
 
 // Number of images to display
-const NUM_ANIMALS = 100;
+const NUM_ROCKS = 100;
 
-// Array of the loaded animal images
-let animalImages = [];
-// Array of animal objects
-let animals = [];
+// Array of the loaded rock images
+let rockImages = [];
+// Array of rock objects
+let rocks = [];
 // Loaded sausage dog image
-let sausageDogImage;
+let limestoneImage;
 // Sausage dog object
-let sausageDog;
+let limestone;
+
+let state = `start` // Starting state preceeeeeding level 1, level 2, level 3, end
 
 // preload()
-// Loads all the animal images and the sausage dog image
+// Loads all the rock images and the sausage dog image
 function preload() {
-  // Loop once for each animal image, starting from 0
-  for (let i = 0; i < NUM_ANIMAL_IMAGES; i++) {
+  // Loop once for each rock image, starting from 0
+  for (let i = 0; i < NUM_ROCK_IMAGES; i++) {
     // Load the image with the current number (starting from 0)
-    let animalImage = loadImage(`${ANIMAL_IMAGE_PREFIX}${i}.png`);
+    let rockImage = loadImage(`${ROCK_IMAGE_PREFIX}${i}.png`);
     // Add the image to the array for use later when randomly selecting
-    animalImages.push(animalImage);
+    rockImages.push(rockImage);
   }
 
   // Load the sausage dog image
-  sausageDogImage = loadImage(`${SAUSAGE_DOG_IMAGE}`);
+  limestoneImage = loadImage(`${SAUSAGE_DOG_IMAGE}`);
 }
 
 
 // setup()
-// Creates all the animal objects and a sausage dog object
+// Creates all the rock objects and a sausage dog object
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
+  frameRate(60);
+  textSize(24);
 
-  createAnimals();
-  createSausageDog();
+  createRocks();
+  createLimestone();
 }
 
-// createAnimals()
-// Creates all the animals at random positions with random animal images
-function createAnimals() {
-  // Create the correct number of animals
-  for (let i = 0; i < NUM_ANIMALS; i++) {
-    // Create one random animal
-    let animal = createRandomAnimal();
-    // Add it to the animals array
-    animals.push(animal);
+// createRocks()
+// Creates all the rocks at random positions with random rock images
+function createRocks() {
+  // Create the correct number of rocks
+  for (let i = 0; i < NUM_ROCKS; i++) {
+    // Create one random rock
+    let rock = createRandomRock();
+    // Add it to the rocks array
+    rocks.push(rock);
   }
 }
 
-// createRandomAnimal()
-// Create an animal object at a random position with a random image
-// then return that created animal
-function createRandomAnimal() {
+// createRandomRock()
+// Create an rock object at a random position with a random image
+// then return that created rock
+function createRandomRock() {
   let x = random(0, width);
   let y = random(0, height);
-  let animalImage = random(animalImages);
-  let animal = new Animal(x, y, animalImage);
-  return animal;
+  let rockImage = random(rockImages);
+  let rock = new Rock(x, y, rockImage);
+  rock.angle = random(0,360);
+  return rock;
 }
 
-// createSausageDog()
+// createLimestone()
 // Creates a sausage dog at a random position
-function createSausageDog() {
+function createLimestone() {
   let x = random(0, width);
   let y = random(0, height);
-  sausageDog = new SausageDog(x, y, sausageDogImage);
+  limestone = new Limestone(x, y, limestoneImage);
 }
 
 // draw()
-// Draws the background then updates all animals and the sausage dog
+// Draws the background then updates all rocks and the sausage dog
 function draw() {
   background(255, 255, 0);
 
-  updateAnimals();
-  updateSausageDog();
-}
-
-// updateAnimals()
-// Calls the update() method for all animals
-function updateAnimals() {
-  // Loop through all animals
-  for (let i = 0; i < animals.length; i++) {
-    // Update the current animal
-    animals[i].update();
+  if (state === `start`) {
+    startScreen();
+  }
+  else if (state === `play`) {
+    updateRocks();
+    updateLimestone();
+  }
+  else if (state === `end`) {
+    endScreen();
   }
 }
 
-// updateSausageDog()
+function startScreen() {
+  text(`Click the Limestone.`,width/2,height/2);
+  image(limestoneImage, width/2.5, height/2.1);
+}
+
+// updateRocks()
+// Calls the update() method for all rocks
+function updateRocks() {
+  // Loop through all rocks
+  for (let i = 0; i < rocks.length; i++) {
+    // Update the current rock
+    rocks[i].update();
+  }
+}
+
+// updateLimestone()
 // Calls the update() method of the sausage dog
-function updateSausageDog() {
-  sausageDog.update();
+function updateLimestone() {
+  limestone.update();
+}
+
+function endScreen() {
+
 }
 
 // mousePressed()
@@ -112,5 +135,9 @@ function updateSausageDog() {
 // Call the sausage dog's mousePressed() method so it knows
 // the mouse was clicked.
 function mousePressed() {
-  sausageDog.mousePressed();
+  limestone.mousePressed();
+
+  if (state === `start`) {
+    state = `play`;
+  }
 }

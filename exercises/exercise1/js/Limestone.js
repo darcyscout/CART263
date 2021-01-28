@@ -3,7 +3,7 @@
 // Adds the idea of being found when clicked
 // and spinning when found
 
-class SausageDog extends Animal {
+class Limestone extends Rock {
   // constructor(x,y,image)
   // Calls the super constructor
   // Adds properties for being found and for a rotation speed
