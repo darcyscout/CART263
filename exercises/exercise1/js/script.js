@@ -1,12 +1,12 @@
 "use strict";
 
 /*****************
-Where's Sausage Dog?
+Where's the Limestone? ---- Built from "Where's Sausage Dog?" by Pippin Barr
 Pippin Barr
-Where's Waldo, except with a Sausage Dog!
+Where's Waldo, except with a Limestone!
 Displays a large number of random rock images as well as
-a single sausage dog image. The player needs to click on the
-dog to win the game.
+a single limestone image. The player needs to click on the
+stone to win the game.
 ******************/
 
 // Constants for image loading
@@ -26,7 +26,11 @@ let limestoneImage;
 // Sausage dog object
 let limestone;
 
-let state = `start` // Starting state preceeeeeding level 1, level 2, level 3, end
+let endTimer = 0;
+
+let timer = 10;
+
+let state = `start` // Starting state preceeeeeding play, end
 
 // preload()
 // Loads all the rock images and the sausage dog image
@@ -93,7 +97,7 @@ function createLimestone() {
 function draw() {
   background(255, 255, 0);
 
-  if (state === `start`) {
+  if (state === `start`) {    // States to trigger start, play and end screens
     startScreen();
   }
   else if (state === `play`) {
@@ -106,8 +110,8 @@ function draw() {
 }
 
 function startScreen() {
-  text(`Click the Limestone.`,width/2,height/2);
-  image(limestoneImage, width/2.5, height/2.1);
+  text(`Click the Limestone.`,width/2,height/2);  // Instructions
+  image(limestoneImage, width/2.5, height/2.1);  // Floating Limestone for reference and instruction
 }
 
 // updateRocks()
@@ -124,10 +128,16 @@ function updateRocks() {
 // Calls the update() method of the sausage dog
 function updateLimestone() {
   limestone.update();
+
+  if (limestone.angle > 30) { // Once the limestone has spun enough it will trigger the end state/screen
+    state = `end`;
+  }
 }
 
-function endScreen() {
-
+function endScreen() {  // end screen with the floating word "end"
+  background(0);
+  fill(255);
+  text(`end`,width/2,height/2);
 }
 
 // mousePressed()
@@ -137,7 +147,7 @@ function endScreen() {
 function mousePressed() {
   limestone.mousePressed();
 
-  if (state === `start`) {
+  if (state === `start`) {  // If the start screen is displayed a mouse click will trigger the play state
     state = `play`;
   }
 }

@@ -1,5 +1,5 @@
-// SausageDog
-// An extension of the Animal class
+// Limestone
+// An extension of the Rock class
 // Adds the idea of being found when clicked
 // and spinning when found
 
