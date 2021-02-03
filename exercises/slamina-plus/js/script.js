@@ -10,7 +10,7 @@ name forwards.
 
 // An array of animal names from
 // https://github.com/dariusk/corpora/blob/master/data/animals/common.json
-const animals = [
+let animals = [
   "aardvark",
   "alligator",
   "alpaca",
@@ -160,6 +160,12 @@ let nopeSFX;
 let playSFX = false;
 let correct = false;
 
+let lives = 3;
+
+let rightAnswers = 0;
+
+let string = `${lives} lives`
+
 let state = `title`
 
 function preload() {
@@ -205,6 +211,11 @@ function draw() {
   }
   else if (state === `play`) {
     displayAnswer();
+    displayInstructions();
+    displayLives();
+  }
+  else if (state === `end`) {
+    displayEnd();
   }
 }
 
@@ -216,11 +227,32 @@ Display the current answer in red if incorrect and green if correct
 function displayTitle() {
   push();
   fill(240,220,20);
-  text(`Slamina`, width/2, height/3);
+  text(`Slamina`, width/2 + random(-5,5), height/3 + random(-5,5));
   pop();
 }
 
+function displayInstructions() {
+  push();
+  textSize(15);
+  fill(100,255,100);
+  text(`I think it is... (your guess)`, width/2, height/9);
+  pop();
+}
+
+function displayLives() {
+  push();
+  textSize(15);
+  fill(100,255,100);
+  text(string, width/9, height/2);
+  pop();
+
+  if (lives < 1) {
+    state = `end`;
+  }
+}
+
 function displayAnswer() {
+
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
     correct = true;
@@ -233,6 +265,22 @@ function displayAnswer() {
   }
   text(currentAnswer, width / 2, height / 2);
 }
+
+function displayEnd() {
+  push();
+  fill(240,220,20);
+  text(`animalS`, width/2 + random(-5,5), height/3 + random(-5,5));
+  pop();
+
+  string = `${rightAnswers} correct answers`
+
+  push();
+  textSize(15);
+  fill(100,255,100);
+  text(string, width/2, height/2);
+  pop();
+}
+
 /**
 Plays sound appropriate to whether or not the correct answer is said.
 */
@@ -240,10 +288,13 @@ function soundEffect() {
   if (playSFX === true) {
     if (correct === true) {
       dingSFX.play();
+      rightAnswers += 1;
       playSFX = false;
     }
     else {
       nopeSFX.play();
+      lives = lives - 1;
+      string = `${lives} lives`
       playSFX = false;
     }
   }
@@ -295,5 +346,9 @@ function nextQuestion() {
 When the user clicks, go to the next question
 */
 function mousePressed() {
+
+  if (state === `title`) {
+    state = `play`;
+  }
   nextQuestion();
 }
