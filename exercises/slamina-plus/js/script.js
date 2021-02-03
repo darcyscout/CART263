@@ -160,6 +160,8 @@ let nopeSFX;
 let playSFX = false;
 let correct = false;
 
+let state = `title`
+
 function preload() {
   dingSFX = loadSound(`assets/sounds/DING.mp3`);
   nopeSFX = loadSound(`assets/sounds/NOPE.mp3`);
@@ -197,13 +199,27 @@ Display the current answer.
 function draw() {
   background(0);
 
-  displayAnswer();
+  if (state === `title`) {
+    displayTitle();
+    displayAnswer();
+  }
+  else if (state === `play`) {
+    displayAnswer();
+  }
 }
 
 /**
 Display the current answer in red if incorrect and green if correct
 (Displays nothing if no guess entered yet)
 */
+
+function displayTitle() {
+  push();
+  fill(240,220,20);
+  text(`Slamina`, width/2, height/3);
+  pop();
+}
+
 function displayAnswer() {
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
