@@ -154,7 +154,18 @@ let currentAnswer = `Click to begin.`;
 // The current animal name the user is trying to guess
 let currentAnimal = ``;
 
-/**
+let dingSFX;
+let nopeSFX;
+
+let playSFX = false;
+let correct = false;
+
+function preload() {
+  dingSFX = loadSound(`assets/sounds/DING.mp3`);
+  nopeSFX = loadSound(`assets/sounds/NOPE.mp3`);
+}
+
+/*
 Create a canvas
 Set up annyang with the guessing command
 Set text defaults
@@ -196,11 +207,30 @@ Display the current answer in red if incorrect and green if correct
 function displayAnswer() {
   if (currentAnswer === currentAnimal) {
     fill(0, 255, 0);
+    correct = true;
+    soundEffect();
   }
   else {
     fill(255, 0, 0);
+    correct = false;
+    soundEffect();
   }
   text(currentAnswer, width / 2, height / 2);
+}
+/**
+Plays sound appropriate to whether or not the correct answer is said.
+*/
+function soundEffect() {
+  if (playSFX === true) {
+    if (correct === true) {
+      dingSFX.play();
+      playSFX = false;
+    }
+    else {
+      nopeSFX.play();
+      playSFX = false;
+    }
+  }
 }
 
 /**
@@ -233,6 +263,7 @@ Sets the answer text to the guess.
 function guessAnimal(animal) {
   // Convert the guess to lowercase to match the answer format
   currentAnswer = animal.toLowerCase();
+  playSFX = true;
 }
 
 /**
