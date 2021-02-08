@@ -1,12 +1,21 @@
 "use strict";
 
 /**
-Title of Project
-Author Name
+Spy Profile Generator
+Darcy Harun w/ the help of Pippin Barr :)
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+Generates a randomized spy profile for the user, and password protects it.
 */
+
+let spyProfile = {
+  name: `**REDACTED**`,
+  alias: `**REDACTED**`,
+  secretWeapon: `**REDACTED**`,
+  password: `**REDACTED**`
+};
+
+let instrumentData = undefined;
+let objectData = undefined;
 
 /**
 Description of preload
@@ -20,7 +29,9 @@ function preload() {
 Description of setup
 */
 function setup() {
+  createCanvas(windowWidth, windowHeight);
 
+  spyProfile.name = prompt(`Agent! What is your name?!`);
 }
 
 
@@ -28,5 +39,20 @@ function setup() {
 Description of draw()
 */
 function draw() {
+  background(255);
 
+  let profile = `** SPY PROFILE! DO NOT DISTRIBUTE! **
+
+Name: ${spyProfile.name}
+Alias: ${spyProfile.alias}
+Secret Weapon: ${spyProfile.secretWeapon}
+Password: ${spyProfile.password}`;
+
+  push();
+  textFont(`Courier, monospace`);
+  textSize(24);
+  textAlign(LEFT, TOP);
+  fill(0);
+  text(profile, 100, 100);
+  pop();
 }
