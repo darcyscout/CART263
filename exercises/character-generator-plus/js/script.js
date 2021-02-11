@@ -8,34 +8,31 @@ Generates a randomized spy profile for the user, and password protects it.
 */
 
 let characterProfile = {
-  name: `**REDACTED**`,
-  alias: `**REDACTED**`,
-  secretWeapon: `**REDACTED**`,
-  password: `**REDACTED**`,
-  champion: `**RETARDED**`
+  name: `--`,
+  companion: `--`,
+  setting: `--`,
+  artifact: `--`,
+  sign: `--`,
+  spirit: `--`,
+  attribute: `--`
 };
 
-// let characterProfile = {
-//   name: `**REDACTED**`,
-//   alias: `**REDACTED**`,
-//   secretWeapon: `**REDACTED**`,
-//   password: `**REDACTED**`,
-//   champion: `**RETARDED**`
-// };
-
-let instrumentData = undefined;
-let objectData = undefined;
-let tarotData = undefined;
-let championData = undefined;
+let artifactData = undefined;
+let descriptionsData = undefined;
+let settingData = undefined;
+let tolkienData = undefined;
+let zodiacData = undefined;
 
 /**
 Description of preload
 */
 function preload() {
-  instrumentData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`);
-  objectData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`);
-  tarotData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`);
-  championData = loadJSON(`assets/data/tolkienCharacterNames.json`);
+
+  artifactData = loadJSON(`assets/data/artifact.json`);
+  descriptionsData = loadJSON(`assets/data/descriptions.json`);
+  settingData = loadJSON(`assets/data/setting.json`);
+  tolkienData = loadJSON(`assets/data/tolkienCharacterNames.json`);
+  zodiacData = loadJSON(`assets/data/zodiac.json`);
 }
 
 
@@ -44,50 +41,75 @@ Description of setup
 */
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  angleMode(DEGREES);
 
-  let data = JSON.parse(localStorage.getItem(`character-profile-data`));
-  if (data !== null) {
-    let password = prompt (`Agent! What is your password`)
-    if (password === data.password) {
-      characterProfile.name = data.name;
-      characterProfile.alias = data.alias;
-      characterProfile.secretWeapon = data.secretWeapon;
-      characterProfile.password = data.password;
-      characterProfile.champion = data.champion;
-    }
+  generateCharacterProfile();
 
-
-
-  }
-  else {
-    generateCharacterProfile();
-  }
+  // let data = JSON.parse(localStorage.getItem(`character-profile-data`));
+  // if (data !== null) {
+  //   let password = prompt (`Agent! What is your password`)
+  //   if (password === data.password) {
+  //     characterProfile.name = data.name;
+  //     characterProfile.alias = data.alias;
+  //     characterProfile.secretWeapon = data.secretWeapon;
+  //     characterProfile.password = data.password;
+  //     characterProfile.champion = data.champion;
+  //   }
+  //
+  //
+  //
+  // }
+  // else {
+  //   generateCharacterProfile();
+  // }
 }
 
 function generateCharacterProfile() {
-  characterProfile.name = prompt(`Agent! What is your name?!`);
-  let instrument = random(instrumentData.instruments);
-  characterProfile.alias = `The ${instrument}`;
-  characterProfile.secretWeapon = random(objectData.objects);
-  let card = random(tarotData.tarot_interpretations);
-  characterProfile.password = random(card.keywords);
-  characterProfile.champion = random(championData.names);
 
-  localStorage.setItem(`character-profile-data`,JSON.stringify(characterProfile));
+  characterProfile.name = prompt(`What is your name?`);
+  characterProfile.companion = random(tolkienData.names);
+  let place = random(settingData.settings);
+  characterProfile.setting = place.name;
+  let artifact = random(artifactData.artifacts);
+  characterProfile.artifact = artifact.name;
+  characterProfile.sign = random(zodiacData.signs);
+  characterProfile.spirit = random(zodiacData.spirit);
+  characterProfile.attribute = random(descriptionsData.descriptions);
+
+  // characterProfile.name = prompt(`Agent! What is your name?!`);
+  // let instrument = random(instrumentData.instruments);
+  // characterProfile.alias = `The ${instrument}`;
+  // characterProfile.secretWeapon = random(objectData.objects);
+  // let card = random(tarotData.tarot_interpretations);
+  // characterProfile.password = random(card.keywords);
+  // characterProfile.champion = random(championData.names);
+
+  // localStorage.setItem(`character-profile-data`,JSON.stringify(characterProfile));
 }
+
 /**
 Description of draw()
 */
 function draw() {
   background(255);
 
-  let profile = `** SPY PROFILE! DO NOT DISTRIBUTE! **
+  let profile = `未 CHARACTER DESCRIPTION 辰
 
-Name: ${characterProfile.name}
-Alias: ${characterProfile.alias}
-Secret Weapon: ${characterProfile.secretWeapon}
-Password: ${characterProfile.password}
-Champion: ${characterProfile.champion}`;
+name ✮ ${characterProfile.name}
+companion ✧ ${characterProfile.companion}
+starting setting ✬ ${characterProfile.setting}
+artifact ✺ ${characterProfile.artifact}
+sign: ❈ ${characterProfile.sign}
+spirit ✣ ${characterProfile.spirit}
+attribute ✹ ${characterProfile.attribute}`;
+
+  displayLines();
+
+  push();
+  fill(255);
+  noStroke();
+  ellipse(width/2, height/2, height/2, height/2);
+  pop();
 
   push();
   textFont(`Gothic, Segoe UI`);
@@ -95,6 +117,41 @@ Champion: ${characterProfile.champion}`;
   textAlign(CENTER, CENTER);
   fill(0);
   text(profile, width/2, height/2);
+  pop();
+
+}
+
+function displayLines() {
+  push();
+  stroke(0,25);
+  strokeWeight(2);
+  translate(width/2, height/2);
+  rotate(0);
+  line(-width, 0, width, 0);
+  pop();
+
+  push();
+  stroke(0,25);
+  strokeWeight(2);
+  translate(width/2, height/2);
+  rotate(90);
+  line(-width, 0, width, 0);
+  pop();
+
+  push();
+  stroke(0,25);
+  strokeWeight(2);
+  translate(width/2, height/2);
+  rotate(45);
+  line(-width, 0, width, 0);
+  pop();
+
+  push();
+  stroke(0,25);
+  strokeWeight(2);
+  translate(width/2, height/2);
+  rotate(-45);
+  line(-width, 0, width, 0);
   pop();
 }
 
