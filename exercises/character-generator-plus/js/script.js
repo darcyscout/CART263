@@ -1,22 +1,32 @@
 "use strict";
 
 /**
-Spy Profile Generator
+Character Generator
 Darcy Harun w/ the help of Pippin Barr :)
 
 Generates a randomized spy profile for the user, and password protects it.
 */
 
-let spyProfile = {
+let characterProfile = {
   name: `**REDACTED**`,
   alias: `**REDACTED**`,
   secretWeapon: `**REDACTED**`,
-  password: `**REDACTED**`
+  password: `**REDACTED**`,
+  champion: `**RETARDED**`
 };
+
+// let characterProfile = {
+//   name: `**REDACTED**`,
+//   alias: `**REDACTED**`,
+//   secretWeapon: `**REDACTED**`,
+//   password: `**REDACTED**`,
+//   champion: `**RETARDED**`
+// };
 
 let instrumentData = undefined;
 let objectData = undefined;
 let tarotData = undefined;
+let championData = undefined;
 
 /**
 Description of preload
@@ -25,6 +35,7 @@ function preload() {
   instrumentData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`);
   objectData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`);
   tarotData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`);
+  championData = loadJSON(`assets/data/tolkienCharacterNames.json`);
 }
 
 
@@ -34,33 +45,35 @@ Description of setup
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
+  let data = JSON.parse(localStorage.getItem(`character-profile-data`));
   if (data !== null) {
     let password = prompt (`Agent! What is your password`)
     if (password === data.password) {
-      spyProfile.name = data.name;
-      spyProfile.alias = data.alias;
-      spyProfile.secretWeapon = data.secretWeapon;
-      spyProfile.password = data.password;
+      characterProfile.name = data.name;
+      characterProfile.alias = data.alias;
+      characterProfile.secretWeapon = data.secretWeapon;
+      characterProfile.password = data.password;
+      characterProfile.champion = data.champion;
     }
 
 
 
   }
   else {
-    generateSpyProfile();
+    generateCharacterProfile();
   }
 }
 
-function generateSpyProfile() {
-  spyProfile.name = prompt(`Agent! What is your name?!`);
+function generateCharacterProfile() {
+  characterProfile.name = prompt(`Agent! What is your name?!`);
   let instrument = random(instrumentData.instruments);
-  spyProfile.alias = `The ${instrument}`;
-  spyProfile.secretWeapon = random(objectData.objects);
+  characterProfile.alias = `The ${instrument}`;
+  characterProfile.secretWeapon = random(objectData.objects);
   let card = random(tarotData.tarot_interpretations);
-  spyProfile.password = random(card.keywords);
+  characterProfile.password = random(card.keywords);
+  characterProfile.champion = random(championData.names);
 
-  localStorage.setItem(`spy-profile-data`,JSON.stringify(spyProfile));
+  localStorage.setItem(`character-profile-data`,JSON.stringify(characterProfile));
 }
 /**
 Description of draw()
@@ -70,20 +83,21 @@ function draw() {
 
   let profile = `** SPY PROFILE! DO NOT DISTRIBUTE! **
 
-Name: ${spyProfile.name}
-Alias: ${spyProfile.alias}
-Secret Weapon: ${spyProfile.secretWeapon}
-Password: ${spyProfile.password}`;
+Name: ${characterProfile.name}
+Alias: ${characterProfile.alias}
+Secret Weapon: ${characterProfile.secretWeapon}
+Password: ${characterProfile.password}
+Champion: ${characterProfile.champion}`;
 
   push();
-  textFont(`Courier, monospace`);
+  textFont(`Gothic, Segoe UI`);
   textSize(24);
-  textAlign(LEFT, TOP);
+  textAlign(CENTER, CENTER);
   fill(0);
-  text(profile, 100, 100);
+  text(profile, width/2, height/2);
   pop();
 }
 
 function mousePressed() {
-  generateSpyProfile();
+  generateCharacterProfile();
 }
