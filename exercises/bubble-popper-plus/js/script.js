@@ -38,8 +38,6 @@ let pin = {
 
 let pops = 0;
 
-let string = undefined;
-
 /**
 Starts the webcam and the Handpose, creates a bubble object
 */
@@ -70,6 +68,7 @@ function setup() {
     x: random(width),
     y: height,
     size: 100,
+    red: 100,
     vx: 0,
     vy: -2
   }
@@ -158,7 +157,7 @@ Moves the bubble according to its velocity
 */
 function moveBubble() {
   bubble.x += bubble.vx;
-  bubble.y += bubble.vy;
+  bubble.y += bubble.vy - (pops*0.1);
 }
 
 /**
@@ -174,9 +173,12 @@ function checkOutOfBounds() {
 Displays the bubble as a circle
 */
 function displayBubble() {
+  let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
+  bubble.red = map(d,0,width,100,255);
+
   push();
   noStroke();
-  fill(100, 100, 200, 150);
+  fill(bubble.red, 100, 200, 150);
   ellipse(bubble.x, bubble.y, bubble.size);
   pop();
 }
@@ -213,12 +215,11 @@ function displayOverlay() {
 }
 
 function displayPops() {
-  string = `${pops} Pops!`;
 
   push();
   textSize(height/2);
   textAlign(CENTER, CENTER)
-  fill(255,50);
+  fill(bubble.red, 100, 200, 150);
   text(pops, width/2, height/2);
   pop();
 }
