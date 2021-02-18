@@ -1,9 +1,10 @@
 /**
-Bubble Popper
-Pippin Barr
+Bubble Popper Plus
+Darcy Harun with the help of Pippin Barr
 Turns the index finger as seen through the webcam into a pin that can pop
 a bubble that floats from the bottom of the screen to the top.
 Uses:
+Pippin Barr's Bubble Popper activity code
 ml5.js Handpose:
 https://learn.ml5js.org/#/reference/handpose
 */
@@ -36,6 +37,8 @@ let pin = {
   }
 };
 
+// Number of times the pin pops the bubble
+// Also displayed in the center of the screen
 let pops = 0;
 
 /**
@@ -46,7 +49,7 @@ function setup() {
 
   // Start webcam and hide the resulting HTML element
   video = createCapture(VIDEO);
-  video.size(width,height);
+  video.size(width,height); // Size the video to fit the canvas
   video.hide();
 
   // Start the Handpose model and switch to our running state when it loads
@@ -68,7 +71,7 @@ function setup() {
     x: random(width),
     y: height,
     size: 100,
-    red: 100,
+    red: 100, // Used for dynamic colour changing
     vx: 0,
     vy: -2
   }
@@ -118,7 +121,7 @@ function running() {
     // Check if the tip of the "pin" is touching the bubble
     let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
     if (d < bubble.size / 2) {
-      // Pop!
+      // Pop! Pops counter goes up by one
       pops = pops + 1;
       resetBubble();
     }
@@ -156,7 +159,8 @@ function resetBubble() {
 Moves the bubble according to its velocity
 */
 function moveBubble() {
-  bubble.x += bubble.vx;
+  bubble.x += bubble.vx; // Primordial x-velocity, there so vy doesn't get so lonely
+  // As number of pops increases, so does the speed of the bubble
   bubble.y += bubble.vy - (pops*0.1);
 }
 
@@ -173,6 +177,7 @@ function checkOutOfBounds() {
 Displays the bubble as a circle
 */
 function displayBubble() {
+// The colour of the bubble dynamically changes in red value based on the pin position
   let d = dist(pin.tip.x, pin.tip.y, bubble.x, bubble.y);
   bubble.red = map(d,0,width,100,255);
 
@@ -204,6 +209,7 @@ function displayPin() {
 }
 
 function displayOverlay() {
+// Overlays mirrored video on canvas
   push();
   tint(255, 50);
   translate(width,0);
@@ -215,7 +221,7 @@ function displayOverlay() {
 }
 
 function displayPops() {
-
+// Displays number of pops and changes colour with the bubble
   push();
   textSize(height/2);
   textAlign(CENTER, CENTER)
