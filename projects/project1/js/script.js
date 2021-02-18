@@ -1,12 +1,19 @@
 "use strict";
 
 /**
-Title of Project
-Author Name
+Project 1
+Darcy Harun
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+Ship fighting scene from STAR WARS???
 */
+
+let star = {
+  x: 50,
+  y: 50
+};
+
+let x = undefined;
+let y = undefined;
 
 /**
 Description of preload
@@ -20,6 +27,11 @@ function preload() {
 Description of setup
 */
 function setup() {
+  createCanvas(windowWidth,windowHeight);
+
+  for (let i = 0; i < 20; i++) {
+    
+  }
 
 }
 
@@ -28,5 +40,10 @@ function setup() {
 Description of draw()
 */
 function draw() {
+  background(0,50);
+
+  strokeWeight(1.5);
+  stroke(255);
+  point(star.x, star.y);
 
 }
