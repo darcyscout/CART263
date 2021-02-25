@@ -7,23 +7,11 @@ Darcy Harun
 Ship fighting scene from STAR WARS???
 */
 
-let space = {
-  stars: [],
-  numStars: 20,
-  spaceColor: {
-    r: 0,
-    g: 0,
-    b: 0,
-    a: 50
-  }
-};
-
 let star = {
   x: 50,
   y: 50,
   vx: 0,
-  vy: 1,
-  num: 10
+  vy: 1
 };
 
 /**
@@ -42,16 +30,6 @@ function setup() {
 
 }
 
-function createStar() {
-  let star = {
-    x: random(0, width),
-    y: random(0, height),
-    size: 1.5,
-    vx: 0,
-    vy: 0
-  };
-  return star;
-}
 
 /**
 Description of draw()
