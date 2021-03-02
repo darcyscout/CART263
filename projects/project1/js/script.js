@@ -9,22 +9,22 @@ Ship fighting scene from STAR WARS???
 
 let space = {
   stars: [],
-  numStars: 20,
+  numStars: 1000,
   spaceColor: {
     r: 0,
     g: 0,
     b: 0,
-    a: 50
+    a: 255
   }
 };
 
-let star = {
-  x: 50,
-  y: 50,
-  vx: 0,
-  vy: 1,
-  num: 10
-};
+// let star = {
+//   x: 50,
+//   y: 50,
+//   vx: 0,
+//   vy: 1,
+//   num: 10
+// };
 
 /**
 Description of preload
@@ -40,6 +40,10 @@ Description of setup
 function setup() {
   createCanvas(windowWidth,windowHeight);
 
+  for (let i = 0; i < space.numStars; i++) {
+    let star = new Star();
+    space.stars.push(star)
+  }
 }
 
 function createStar() {
@@ -57,18 +61,12 @@ function createStar() {
 Description of draw()
 */
 function draw() {
-  background(0,50);
+  background(space.spaceColor.r, space.spaceColor.g, space.spaceColor.b, space.spaceColor.a);
+  // console.log(check);
 
-  if (star.y > height) {
-    star.y = 0;
-    star.x = random(0,width);
+  for (let i = 0; i < space.stars.length; i++) {
+    let star = space.stars[i];
+    star.display();
+    star.animate();
   }
-
-  star.x = star.x + star.vx;
-  star.y = star.y + star.vy;
-
-  strokeWeight(1.5);
-  stroke(255);
-  point(star.x, star.y);
-
 }
