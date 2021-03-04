@@ -18,19 +18,15 @@ let space = {
   }
 };
 
-// let star = {
-//   x: 50,
-//   y: 50,
-//   vx: 0,
-//   vy: 1,
-//   num: 10
-// };
+let xWingImage = undefined;
+
+let angle = undefined;
 
 /**
 Description of preload
 */
 function preload() {
-
+  xWingImage = loadImage(`assets/images/a-wing.png`);
 }
 
 
@@ -46,17 +42,6 @@ function setup() {
   }
 }
 
-function createStar() {
-  let star = {
-    x: random(0, width),
-    y: random(0, height),
-    size: 1.5,
-    vx: 0,
-    vy: 0
-  };
-  return star;
-}
-
 /**
 Description of draw()
 */
@@ -67,6 +52,25 @@ function draw() {
   for (let i = 0; i < space.stars.length; i++) {
     let star = space.stars[i];
     star.display();
-    star.animate();
+    star.animateTitle();
   }
+
+  angle = atan2(mouseY - height / 2, mouseX - width / 2);
+
+  // push();
+  // imageMode(CENTER);
+  // translate(width/2, height/2);
+  // rotate(90);
+  // rotate(angle);
+  // image(xWingImage, 0, 0);
+  // pop();
+
+  push();
+  textFont(`Gothic`);
+  textSize(108);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  text(`WAR STARS`, width/2, height/3);
+  pop();
+
 }
