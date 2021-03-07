@@ -10,10 +10,10 @@ Ship fighting scene from STAR WARS???
 let space = {
   stars: [],
   ships: [],
-  asteroids: [],
+  smallrocks: [],
   numStars: 1000,
   numShips: 1,
-  numAsteroids: 8,
+  numSmallrocks: 4,
   spaceColor: {
     r: 0,
     g: 0,
@@ -35,6 +35,7 @@ function preload() {
   xWingImage = loadImage(`assets/images/x-wing.png`);
 
   asteroidImage = loadImage(`assets/images/asteroid1.png`);
+  asteroidImage2 = loadImage(`assets/images/asteroid2.png`);
 }
 
 
@@ -55,9 +56,9 @@ function setup() {
     space.ships.push(ship)
   }
 
-  for (let i = 0; i < space.numAsteroids; i++) {
-    let asteroid = new Asteroid();
-    space.asteroids.push(asteroid)
+  for (let i = 0; i < space.numSmallrocks; i++) {
+    let smallrock = new Smallrock();
+    space.smallrocks.push(smallrock)
   }
 }
 
@@ -79,10 +80,10 @@ function draw() {
     ship.display();
   }
 
-  for (let i = 0; i < space.asteroids.length; i++) {
-    let asteroid = space.asteroids[i];
-    asteroid.display();
-    asteroid.move();
+  for (let i = 0; i < space.smallrocks.length; i++) {
+    let smallrock = space.smallrocks[i];
+    smallrock.display();
+    smallrock.move();
   }
 
   // angle = atan2(mouseY - height / 2, mouseX - width / 2);

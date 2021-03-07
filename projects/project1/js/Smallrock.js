@@ -1,4 +1,4 @@
-class Asteroid {
+class Smallrock {
 
   constructor() {
     this.x = random(0, width);
@@ -9,8 +9,8 @@ class Asteroid {
     this.vy2 = random(random(-6,-2), random(2,6));
     this.angle = random(0, 6.28319);
     this.vAngle = random(-0.008, 0.008);
-    this.image = undefined;
-    this.scrollSpeed = random(4, 7);
+    this.image = asteroidImage;
+    this.scrollSpeed = random(10, 12);
   }
 
   display() {
@@ -18,10 +18,8 @@ class Asteroid {
     imageMode(CENTER);
     translate(this.x, this.y);
     rotate(this.angle);
-    image(asteroidImage, 0, 0);
+    image(this.image, 0, 0);
     pop();
-
-    this.angle = this.angle + this.vAngle;
   }
 
   move() {
@@ -37,6 +35,8 @@ class Asteroid {
     if (this.x < 0) {
       this.x = this.x + width;
     }
+
+    this.angle = this.angle + this.vAngle;
 
     this.vx = map(mouseX,0,width,this.scrollSpeed,-this.scrollSpeed);
     this.vy = map(mouseY,0,height,this.scrollSpeed,-this.scrollSpeed);
