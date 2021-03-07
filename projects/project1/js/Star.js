@@ -21,24 +21,16 @@ class Star {
   animatePlay() {
     if (this.y > height) {
       this.y = this.y - height;
-      // this.x = random(0,width);
     }
     if (this.y < 0) {
       this.y = this.y + height;
-      // this.x = random(0,width);
     }
     if (this.x > width) {
       this.x = this.x - width;
-      // this.x = random(0,width);
     }
     if (this.x < 0) {
       this.x = this.x + width;
-      // this.x = random(0,width);
     }
-    // if (this.x > width) {
-    //   this.y = 0;
-    //   this.x = random(0,width);
-    // }
 
     this.vx = map(mouseX,0,width,this.scrollSpeed,-this.scrollSpeed);
     this.vy = map(mouseY,0,height,this.scrollSpeed,-this.scrollSpeed);
