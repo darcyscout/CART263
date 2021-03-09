@@ -81,14 +81,16 @@ function setup() {
 
 
   let data = JSON.parse(localStorage.getItem(`score-profile-data`));
-  scoreProfile.name = data.name;
-  scoreProfile.nickname = data.nickname;
-  scoreProfile.squad = data.squad;
-  scoreProfile.score = data.score;
 
-  if (!data === null) {
+  if (data) {
+    scoreProfile.name = data.name;
+    scoreProfile.nickname = data.nickname;
+    scoreProfile.squad = data.squad;
+    scoreProfile.score = data.score;
+  }
+  else {
     generateScoreProfile();
-}
+  }
 
   for (let i = 0; i < space.numStars; i++) {
     let star = new Star();
@@ -254,9 +256,9 @@ Score -- ${scoreProfile.score} `;
   push();
   textFont(`Gothic`);
   textSize(24);
-  textAlign(CENTER, CENTER);
+  textAlign(LEFT, CENTER);
   fill(255,232,31);
-  text(profile, width/2, height/1.4);
+  text(profile, width/2 - 110, height/1.4);
   pop();
 
   push();
@@ -279,9 +281,9 @@ function endScreen() {
   push();
   textFont(`Gothic`);
   textSize(24);
-  textAlign(CENTER, CENTER);
+  textAlign(LEFT, CENTER);
   fill(255,232,31);
-  text(profile, width/2, height/1.4);
+  text(profile, width/2 - 110, height/1.4);
   pop();
 
   push();
