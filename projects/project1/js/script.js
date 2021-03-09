@@ -161,9 +161,6 @@ function draw() {
   // Draw space black space background
   background(space.spaceColor.r, space.spaceColor.g, space.spaceColor.b, space.spaceColor.a);
 
-  // Update score each frame by +1
-  score = score + scoreMultiplier;
-
   // Animate & Display Stars
   for (let i = 0; i < space.stars.length; i++) {
     let star = space.stars[i];
@@ -177,6 +174,11 @@ function draw() {
 
   // Only use asteroids in play state
   if (state === `play`) {
+
+    // Update score each frame by +1
+    // Only while playing
+    score = score + scoreMultiplier;
+
     // Animate & Display harmless asteroids
     for (let i = 0; i < space.babyrocks.length; i++) {
       let babyrock = space.babyrocks[i];
