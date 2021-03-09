@@ -39,7 +39,6 @@ let scoreProfile = {
 
 let score = 0;
 let scoreMultiplier = 1;
-let end = false;
 
 let colorsData = undefined;
 let animalsData = undefined;
@@ -126,7 +125,8 @@ function setup() {
 function generateScoreProfile() {
 
   scoreProfile.name = prompt(`What is your name pilot?`);
-  scoreProfile.nickname = random(animalsData.name);
+  let animal = random(animalsData.animals);
+  scoreProfile.nickname = animal.name;
   scoreProfile.squad = random(colorsData.colors);
   scoreProfile.score = score;
   localStorage.setItem(`score-profile-data`,JSON.stringify(scoreProfile));
@@ -248,33 +248,8 @@ function titleScreen() {
 
   let profile = `PREVIOUS MISSION
 
-Name -- ${scoreProfile.name}
-Nickname -- ${scoreProfile.nickname}
-Squad -- ${scoreProfile.squad}
-Score -- ${scoreProfile.score} `;
-
-  push();
-  textFont(`Gothic`);
-  textSize(24);
-  textAlign(LEFT, CENTER);
-  fill(255,232,31);
-  text(profile, width/2 - 110, height/1.4);
-  pop();
-
-  push();
-  fill(255,20);
-  stroke(255,159);
-  strokeWeight(1);
-  rect(width/2, height/1.4, 250, 200);
-  pop();
-}
-
-function endScreen() {
-
-  let profile = `!MISSION REPORT!
-
   Name -- ${scoreProfile.name}
-  Nickname -- ${scoreProfile.nickname}
+  Nickname -- The ${scoreProfile.nickname}
   Squad -- ${scoreProfile.squad}
   Score -- ${scoreProfile.score} `;
 
@@ -290,23 +265,63 @@ function endScreen() {
   fill(255,20);
   stroke(255,159);
   strokeWeight(1);
-  rect(width/2, height/1.4, 250, 200);
+  rect(width/2, height/1.4, width + 10, 200);
+  pop();
+}
+
+function endScreen() {
+
+  let profile = `! MISSION REPORT !
+
+  Name -- ${scoreProfile.name}
+  Nickname -- The ${scoreProfile.nickname}
+  Squad -- ${scoreProfile.squad}
+  Score -- ${scoreProfile.score} `;
+
+  push();
+  textFont(`Gothic`);
+  textSize(24);
+  textAlign(LEFT, CENTER);
+  fill(255,232,31);
+  text(profile, width/2 - 110, height/2);
   pop();
 
-  // Display Score
-  // If score is higher than saved highscore replace highscore with current score
-  // Ask what there name is to save with highscore
-  // Each new name has its own highscore?
+  push();
+  fill(255,20);
+  stroke(255,159);
+  strokeWeight(1);
+  rect(width/2, height/2, width + 10, 200);
+  pop();
+
+  push();
+  textFont(`Gothic`);
+  textSize(18);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  text(`click for new profile`, width/2, height/6);
+  pop();
+  // push();
+  // fill(255,20);
+  // stroke(255,159);
+  // strokeWeight(1);
+  // rect(width/2, height/1.4, 250, 200);
+  // pop();
+
 }
 
 function gameOver() {
   scoreMultiplier = 0;
   state = `end`;
+  scoreProfile.score = score;
 }
 
 function mousePressed() {
 
   if (state === `title`) {
     state = `play`;
+  }
+
+  if (state === `end`) {
+    generateScoreProfile();
   }
 }
