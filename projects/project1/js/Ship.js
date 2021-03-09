@@ -1,8 +1,8 @@
 class Ship {
 
   constructor() {
-    this.x = width/2;
-    this.y = height/2;
+    this.x = width / 2;
+    this.y = height / 2;
     this.angle = 0;
     this.alive = true;
     this.invincibilityTimer = 2;

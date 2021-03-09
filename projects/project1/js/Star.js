@@ -32,8 +32,8 @@ class Star {
       this.x = this.x + width;
     }
 
-    this.vx = map(mouseX,0,width,this.scrollSpeed,-this.scrollSpeed);
-    this.vy = map(mouseY,0,height,this.scrollSpeed,-this.scrollSpeed);
+    this.vx = map(mouseX, 0, width, this.scrollSpeed, -this.scrollSpeed);
+    this.vy = map(mouseY, 0, height, this.scrollSpeed, -this.scrollSpeed);
 
     this.x = this.x + this.vx;
     this.y = this.y + this.vy;
@@ -56,7 +56,7 @@ class Star {
     this.vx = -0.05;
     this.vy = 0.1;
 
-    this.x = this.x + this.vx - this.scrollSpeed/30;
-    this.y = this.y + this.vy + this.scrollSpeed/40;
+    this.x = this.x + this.vx - this.scrollSpeed / 30;
+    this.y = this.y + this.vy + this.scrollSpeed / 40;
   }
 }

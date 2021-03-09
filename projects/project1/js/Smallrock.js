@@ -6,7 +6,7 @@ class Smallrock {
     this.vx = 0;
     this.vy = 0;
     this.vx2 = random(-2, 2);
-    this.vy2 = random(-2 ,2);
+    this.vy2 = random(-2, 2);
     this.angle = random(0, 6.28319);
     this.vAngle = random(-0.1, 0.1);
     this.image = asteroidImage;
@@ -38,8 +38,8 @@ class Smallrock {
 
     this.angle = this.angle + this.vAngle;
 
-    this.vx = map(mouseX,0,width,this.scrollSpeed,-this.scrollSpeed);
-    this.vy = map(mouseY,0,height,this.scrollSpeed,-this.scrollSpeed);
+    this.vx = map(mouseX, 0, width, this.scrollSpeed, -this.scrollSpeed);
+    this.vy = map(mouseY, 0, height, this.scrollSpeed, -this.scrollSpeed);
 
     this.x = this.x + this.vx + this.vx2;
     this.y = this.y + this.vy + this.vy2;

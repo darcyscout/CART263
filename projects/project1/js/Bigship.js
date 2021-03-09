@@ -1,8 +1,8 @@
 class Bigship {
 
   constructor() {
-    this.x = width/2;
-    this.y = height/2;
+    this.x = width / 2;
+    this.y = height / 2;
     this.vx = 0;
     this.vy = 0;
     this.angle = -90;
@@ -34,8 +34,8 @@ class Bigship {
       gameOver();
     }
 
-    this.vx = map(mouseX,0,width,this.scrollSpeed,-this.scrollSpeed);
-    this.vy = map(mouseY,0,height,this.scrollSpeed,-this.scrollSpeed);
+    this.vx = map(mouseX, 0, width, this.scrollSpeed, -this.scrollSpeed);
+    this.vy = map(mouseY, 0, height, this.scrollSpeed, -this.scrollSpeed);
 
     this.x = this.x + this.vx + this.vx2;
     this.y = this.y + this.vy + this.vy2;
